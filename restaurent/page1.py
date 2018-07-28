@@ -1,7 +1,7 @@
 from tkinter import*
 import time
 import random
-
+from threading import Thread
 root=Tk()
 root.geometry("1600x800+0+0")
 root.title("Restaurent Management System")
@@ -18,16 +18,20 @@ f1.pack(side=LEFT)
 f2=Frame(root,width=300,height=700,relief=SUNKEN)
 f2.pack(side=RIGHT)
 
-localtime=time.asctime(time.localtime(time.time()))
+
 
 #systemInfo
 lblinfo=Label(Tops,font=('arial',50,'bold'),text="Restaurent Management System",fg="Steel Blue",bd=10,anchor='w')
 lblinfo.grid(row=0,column=0)
 
 #TimeInfo
-timelbl=Label(Tops,font=('arial',20,'bold'),text=localtime,fg="Steel Blue",bd=10,anchor='w')
-timelbl.grid(row=1,column=0)
-
+def timer():
+	while True:
+		localtime=time.asctime(time.localtime(time.time()))	
+		timelbl=Label(Tops,font=('arial',20,'bold'),text=localtime,fg="Steel Blue",bd=10,anchor='w')
+		timelbl.grid(row=1,column=0)
+t1=Thread(target=timer)
+t1.start()
 #Calculator
 def btnClick(number):
 	global operator
@@ -98,15 +102,15 @@ div=Button(f2,padx=16,pady=16,bd=8,fg="black",font=('arial',10,'bold'),text='/',
 
 #frame1
 rand=StringVar()
-Fries=StringVar("0")
-Burger=StringVar("0")
-Filet=StringVar("0")
-Chicken=StringVar("0")
-Cheese=StringVar("0")
+Fries=StringVar()
+Burger=StringVar()
+Filet=StringVar()
+Chicken=StringVar()
+Cheese=StringVar()
 Subtotal=StringVar()
 Total=StringVar()
 Service_Charge=StringVar()
-Drinks=StringVar("0")
+Drinks=StringVar()
 Tax=StringVar()
 Cost=StringVar()
 
